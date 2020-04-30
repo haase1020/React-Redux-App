@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from "react-redux";
+import { getData } from "./actions";
+import AnimeList from './components/animeList';
 import './App.css';
 
-function App() {
+function App(props) {
+
+  const handleData = e => {
+    e.preventDefault();
+    props.getData();
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>Anime</h1>
+     {props.isFetchingData ? (
+       <div> getting the data</div>
+     ): (
+       <button onClick={handleData}>Anime</button>)}
+       <AnimeList />
     </div>
   );
 }
 
-export default App;
+
+const mapStateToProps = state => {
+  return {
+    isFetchingData: state.isFetchingData
+  }
+}
+export default connect(mapStateToProps,
+  { getData })(App);
