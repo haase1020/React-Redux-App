@@ -3,6 +3,15 @@ import { connect } from "react-redux";
 import { getData } from "./actions";
 import AnimeList from './components/animeList';
 import './App.css';
+import { ThemeProvider } from "@chakra-ui/core";
+import customTheme from "./theme/customTheme";
+
+import {
+  Button,
+  CSSReset,
+  IconButton,
+  Text
+} from "@chakra-ui/core";
 
 function App(props) {
 
@@ -10,15 +19,25 @@ function App(props) {
     e.preventDefault();
     props.getData();
   }
+  console.log('handledata props', props)
   return (
+    <ThemeProvider theme={customTheme}>
+    <CSSReset />
     <div className="App">
-     <h1>Anime</h1>
+     <Text fontSize="50px">Anime</Text>
      {props.isFetchingData ? (
        <div> getting the data</div>
      ): (
-       <button onClick={handleData}>Anime</button>)}
+       <IconButton 
+       variantColor="blue" 
+       size="lg" 
+       width="100px"
+       variant="solid" 
+       icon="search"
+       onClick={handleData}>Anime</IconButton>)}
        <AnimeList />
     </div>
+  </ThemeProvider>
   );
 }
 
