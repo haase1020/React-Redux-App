@@ -1,51 +1,45 @@
-import React from 'react';
-import { connect } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getData } from "./actions";
-import AnimeList from './components/animeList';
-import './App.css';
+import AnimeList from "./components/animeList";
+import "./App.css";
 import { ThemeProvider } from "@chakra-ui/core";
 import customTheme from "./theme/customTheme";
 
-import {
-  Button,
-  CSSReset,
-  IconButton,
-  Text
-} from "@chakra-ui/core";
+import { Button, CSSReset, IconButton, Text } from "@chakra-ui/core";
 
 function App(props) {
+  const dispatch = useDispatch();
+  const isFetchingData = useSelector((state) => state.isFetchingData);
 
-  const handleData = e => {
+  const handleData = (e) => {
     e.preventDefault();
-    props.getData();
-  }
-  console.log('handledata props', props)
+    dispatch(getData());
+  };
+
   return (
     <ThemeProvider theme={customTheme}>
-    <CSSReset />
-    <div className="App">
-     <Text fontSize="50px">Anime</Text>
-     {props.isFetchingData ? (
-       <div> getting the data</div>
-     ): (
-       <IconButton 
-       variantColor="blue" 
-       size="lg" 
-       width="100px"
-       variant="solid" 
-       icon="search"
-       onClick={handleData}>Anime</IconButton>)}
-       <AnimeList />
-    </div>
-  </ThemeProvider>
+      <CSSReset />
+      <div className="App">
+        <Text fontSize="50px">Anime</Text>
+        {isFetchingData ? (
+          <div> getting the data</div>
+        ) : (
+          <IconButton
+            variantColor="blue"
+            size="lg"
+            width="100px"
+            variant="solid"
+            icon="search"
+            onClick={handleData}
+          >
+            Anime
+          </IconButton>
+        )}
+        <AnimeList />
+      </div>
+    </ThemeProvider>
   );
 }
 
-
-const mapStateToProps = state => {
-  return {
-    isFetchingData: state.isFetchingData
-  }
-}
-export default connect(mapStateToProps,
-  { getData })(App);
+export default App;
