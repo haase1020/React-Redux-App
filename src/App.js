@@ -1,12 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getData } from "./actions";
+import { resetData } from "./actions";
 import AnimeList from "./components/animeList";
 import "./App.css";
 import { ThemeProvider } from "@chakra-ui/core";
 import customTheme from "./theme/customTheme";
 
-import { Button, CSSReset, IconButton, Text } from "@chakra-ui/core";
+import { CSSReset, IconButton, Button, Text } from "@chakra-ui/core";
 
 function App(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,11 @@ function App(props) {
     e.preventDefault();
     dispatch(getData());
   };
+  const handleResetData = (e) => {
+    e.preventDefault();
+    dispatch(resetData());
+
+  }
 
   return (
     <ThemeProvider theme={customTheme}>
@@ -31,11 +37,22 @@ function App(props) {
             width="100px"
             variant="solid"
             icon="search"
+            margin= "2%"
             onClick={handleData}
           >
-            Anime
+           
           </IconButton>
         )}
+        <Button
+            variantColor="blue"
+            size="lg"
+            width="100px"
+            variant="solid"
+            margin= "2%"
+            onClick={handleResetData}
+          > Reset
+           
+          </Button>
         <AnimeList />
       </div>
     </ThemeProvider>

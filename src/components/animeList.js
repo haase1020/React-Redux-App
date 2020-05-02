@@ -1,6 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
+//can also use import { connect } from 'redux;
+// PhotosList = React.createClass({  })
+// PhotosList = connect(mapState, mapDispatch)(PhotosList)
 
+
+//mapState takes the ste and returns props to be used by the component
 const Episode = ({ episode }) => {
   return (
     <div>
